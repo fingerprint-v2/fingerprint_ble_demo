@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import './ble_scan.dart';
+import 'home.dart';
 
 void main() {
   runApp(const ProviderScope(child: MainApp()));
@@ -11,10 +11,8 @@ class MainApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isSupported = ref.watch(bleAdvertiserProvider).isSupported;
-    final text = isSupported ? "Yes" : "No";
     return MaterialApp(
-      home: Scaffold(body: Center(child: Text(text))),
+      home: Scaffold(body: Center(child: Home())),
     );
   }
 }

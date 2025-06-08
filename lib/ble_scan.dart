@@ -1,29 +1,97 @@
+import 'dart:typed_data';
+import 'package:uuid/uuid.dart';
 import 'package:flutter_ble_peripheral/flutter_ble_peripheral.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 part 'ble_scan.freezed.dart';
 part 'ble_scan.g.dart';
+
+// State class
+@freezed
+sealed class BleAdvertiserState with _$BleAdvertiserState {
+  const factory BleAdvertiserState({
+    @Default(false) bool isSupported,
+    AdvertiseData? advertiseData,
+    AdvertiseSetParameters? advertiseSetParameters,
+  }) = _BleAdvertiserState;
+}
 
 @riverpod
 class BleAdvertiser extends _$BleAdvertiser {
   @override
   BleAdvertiserState build() {
     initPlatformState();
-    return BleAdvertiserState(isSupported: false, isLoading: true);
+    return BleAdvertiserState();
   }
 
   Future<void> initPlatformState() async {
     final isSupported = await FlutterBlePeripheral().isSupported;
-    state = state.copyWith(isSupported: isSupported);
+    state = state.copyWith(
+      isSupported: isSupported,
+      advertiseData: getAdvertiseData(),
+      advertiseSetParameters: getAdvertiseSetParameters(),
+    );
   }
-}
 
-// State class
-// Don't understand why I need to use abstract class here
-@freezed
-abstract class BleAdvertiserState with _$BleAdvertiserState {
-  const factory BleAdvertiserState({
-    required bool isSupported,
-    required bool isLoading,
-  }) = _BleAdvertiserState;
+  Future<void> requestPermissions(Function notify) async {
+    final hasPermission = await FlutterBlePeripheral().hasPermission();
+    switch (hasPermission) {
+      case BluetoothPeripheralState.denied:
+        notify("Requesting permission");
+        await requestPermissions(notify);
+        break;
+      default:
+        notify("Has permission");
+        break;
+    }
+  }
+
+  AdvertiseData getAdvertiseData({
+    String uuid = "",
+    String localName = "BLE Test",
+    int manufacturerId = 12345,
+  }) {
+    if (uuid == "") {
+      uuid = Uuid().v4();
+    }
+    final AdvertiseData data = AdvertiseData(
+      serviceUuid: uuid,
+      localName: localName,
+      manufacturerId: manufacturerId,
+      manufacturerData: Uint8List.fromList([1, 2, 3, 4, 5, 6]),
+    );
+
+    return data;
+  }
+
+  void changeAdvertiseDate({
+    String localName = "BLE Test",
+    int manufacturerId = 12345,
+  }) {
+    final data = getAdvertiseData();
+    state = state.copyWith(advertiseData: data);
+  }
+
+  // TODO: Implement some option
+  AdvertiseSetParameters getAdvertiseSetParameters() {
+    final AdvertiseSetParameters data = AdvertiseSetParameters();
+    return data;
+  }
+
+  Future<BluetoothPeripheralState> _hasPermissions() async {
+    final hasPermissions = await FlutterBlePeripheral().hasPermission();
+    return hasPermissions;
+  }
+
+  Future<void> startAdvertise() async {
+    await FlutterBlePeripheral().start(
+      advertiseData: state.advertiseData ?? getAdvertiseData(),
+      advertiseSetParameters: state.advertiseSetParameters,
+    );
+  }
+
+  Future<void> stopAdvertise() async {
+    await FlutterBlePeripheral().stop();
+  }
 }

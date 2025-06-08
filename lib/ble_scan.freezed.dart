@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$BleAdvertiserState {
 
- bool get isSupported; bool get isLoading;
+ bool get isSupported; AdvertiseData? get advertiseData; AdvertiseSetParameters? get advertiseSetParameters;
 /// Create a copy of BleAdvertiserState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $BleAdvertiserStateCopyWith<BleAdvertiserState> get copyWith => _$BleAdvertiserS
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BleAdvertiserState&&(identical(other.isSupported, isSupported) || other.isSupported == isSupported)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BleAdvertiserState&&(identical(other.isSupported, isSupported) || other.isSupported == isSupported)&&(identical(other.advertiseData, advertiseData) || other.advertiseData == advertiseData)&&(identical(other.advertiseSetParameters, advertiseSetParameters) || other.advertiseSetParameters == advertiseSetParameters));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isSupported,isLoading);
+int get hashCode => Object.hash(runtimeType,isSupported,advertiseData,advertiseSetParameters);
 
 @override
 String toString() {
-  return 'BleAdvertiserState(isSupported: $isSupported, isLoading: $isLoading)';
+  return 'BleAdvertiserState(isSupported: $isSupported, advertiseData: $advertiseData, advertiseSetParameters: $advertiseSetParameters)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $BleAdvertiserStateCopyWith<$Res>  {
   factory $BleAdvertiserStateCopyWith(BleAdvertiserState value, $Res Function(BleAdvertiserState) _then) = _$BleAdvertiserStateCopyWithImpl;
 @useResult
 $Res call({
- bool isSupported, bool isLoading
+ bool isSupported, AdvertiseData? advertiseData, AdvertiseSetParameters? advertiseSetParameters
 });
 
 
@@ -63,11 +63,12 @@ class _$BleAdvertiserStateCopyWithImpl<$Res>
 
 /// Create a copy of BleAdvertiserState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? isSupported = null,Object? isLoading = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? isSupported = null,Object? advertiseData = freezed,Object? advertiseSetParameters = freezed,}) {
   return _then(_self.copyWith(
 isSupported: null == isSupported ? _self.isSupported : isSupported // ignore: cast_nullable_to_non_nullable
-as bool,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,advertiseData: freezed == advertiseData ? _self.advertiseData : advertiseData // ignore: cast_nullable_to_non_nullable
+as AdvertiseData?,advertiseSetParameters: freezed == advertiseSetParameters ? _self.advertiseSetParameters : advertiseSetParameters // ignore: cast_nullable_to_non_nullable
+as AdvertiseSetParameters?,
   ));
 }
 
@@ -78,11 +79,12 @@ as bool,
 
 
 class _BleAdvertiserState implements BleAdvertiserState {
-  const _BleAdvertiserState({required this.isSupported, required this.isLoading});
+  const _BleAdvertiserState({this.isSupported = false, this.advertiseData, this.advertiseSetParameters});
   
 
-@override final  bool isSupported;
-@override final  bool isLoading;
+@override@JsonKey() final  bool isSupported;
+@override final  AdvertiseData? advertiseData;
+@override final  AdvertiseSetParameters? advertiseSetParameters;
 
 /// Create a copy of BleAdvertiserState
 /// with the given fields replaced by the non-null parameter values.
@@ -94,16 +96,16 @@ _$BleAdvertiserStateCopyWith<_BleAdvertiserState> get copyWith => __$BleAdvertis
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BleAdvertiserState&&(identical(other.isSupported, isSupported) || other.isSupported == isSupported)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BleAdvertiserState&&(identical(other.isSupported, isSupported) || other.isSupported == isSupported)&&(identical(other.advertiseData, advertiseData) || other.advertiseData == advertiseData)&&(identical(other.advertiseSetParameters, advertiseSetParameters) || other.advertiseSetParameters == advertiseSetParameters));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isSupported,isLoading);
+int get hashCode => Object.hash(runtimeType,isSupported,advertiseData,advertiseSetParameters);
 
 @override
 String toString() {
-  return 'BleAdvertiserState(isSupported: $isSupported, isLoading: $isLoading)';
+  return 'BleAdvertiserState(isSupported: $isSupported, advertiseData: $advertiseData, advertiseSetParameters: $advertiseSetParameters)';
 }
 
 
@@ -114,7 +116,7 @@ abstract mixin class _$BleAdvertiserStateCopyWith<$Res> implements $BleAdvertise
   factory _$BleAdvertiserStateCopyWith(_BleAdvertiserState value, $Res Function(_BleAdvertiserState) _then) = __$BleAdvertiserStateCopyWithImpl;
 @override @useResult
 $Res call({
- bool isSupported, bool isLoading
+ bool isSupported, AdvertiseData? advertiseData, AdvertiseSetParameters? advertiseSetParameters
 });
 
 
@@ -131,11 +133,12 @@ class __$BleAdvertiserStateCopyWithImpl<$Res>
 
 /// Create a copy of BleAdvertiserState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? isSupported = null,Object? isLoading = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? isSupported = null,Object? advertiseData = freezed,Object? advertiseSetParameters = freezed,}) {
   return _then(_BleAdvertiserState(
 isSupported: null == isSupported ? _self.isSupported : isSupported // ignore: cast_nullable_to_non_nullable
-as bool,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,advertiseData: freezed == advertiseData ? _self.advertiseData : advertiseData // ignore: cast_nullable_to_non_nullable
+as AdvertiseData?,advertiseSetParameters: freezed == advertiseSetParameters ? _self.advertiseSetParameters : advertiseSetParameters // ignore: cast_nullable_to_non_nullable
+as AdvertiseSetParameters?,
   ));
 }
 
