@@ -14,6 +14,7 @@ sealed class BleScannerState with _$BleScannerState {
     StreamSubscription<List<ScanResult>>? scanResultsSub,
     @Default(false) bool isAdapterStateOn,
     @Default([]) List<ScanResult> scanResults,
+    @Default(false) isScanning,
   }) = _BleScannerState;
 }
 
@@ -54,14 +55,26 @@ class BleScanner extends _$BleScanner {
   }
 
   void startScan() async {
+    if (state.isScanning) {
+      logger.d("Already scanning...");
+      return;
+    }
+    state = state.copyWith(isScanning: true);
     logger.d("Starting Scan");
-    await FlutterBluePlus.startScan(
-      timeout: Duration(seconds: 3),
-      // withNames: ["BLE Test"],
-    );
+    await FlutterBluePlus.startScan(timeout: Duration(seconds: 15));
 
     await FlutterBluePlus.isScanning.where((val) => val == false).first;
+    state = state.copyWith(isScanning: false);
     logger.d("Scanning stop");
+  }
+
+  void stopScan() async {
+    await FlutterBluePlus.stopScan();
+    state = state.copyWith(isScanning: false);
+  }
+
+  void resetScanResults() {
+    state = state.copyWith(scanResults: []);
   }
 
   void startScanResultsListener() {
@@ -77,16 +90,31 @@ class BleScanner extends _$BleScanner {
       return;
     }
     final sub = FlutterBluePlus.onScanResults.listen((results) {
+      String pattern = "ffff";
       if (results.isNotEmpty) {
+        List<ScanResult> filteredResults = results.where((r) {
+          List<Guid> serviceUuids = r.advertisementData.serviceUuids;
+          if (serviceUuids.isNotEmpty) {
+            // return true;
+            String uuid = serviceUuids[0].str;
+            return uuid.startsWith(pattern);
+          } else {
+            return false;
+          }
+        }).toList();
+
         List<ScanResult> allResults = [
           ...state.scanResults,
-          ...results.where(
-            (r) =>
-                !state.scanResults.any((old) => old.device.id == r.device.id),
+          ...filteredResults.where(
+            (r) => !state.scanResults.any(
+              (old) => old.device.remoteId == r.device.remoteId,
+            ),
           ),
         ];
         logger.d("Total devices found: ${allResults.length}");
-        allResults.sort((a, b) => b.rssi.compareTo(a.rssi));
+        // allResults.sort((a, b) => b.rssi.compareTo(a.rssi));
+        allResults.sort((a, b) => b.timeStamp.compareTo(a.timeStamp));
+
         state = state.copyWith(scanResults: allResults);
 
         // ScanResult r = results.last; // the most recently found device

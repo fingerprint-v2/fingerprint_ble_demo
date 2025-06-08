@@ -3,16 +3,15 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'features/ble_advertise.dart';
-import 'features/ble_scan.dart';
 import 'features/utils.dart';
 
-class Home extends ConsumerStatefulWidget {
-  const Home({super.key});
+class HomeAdvertise extends ConsumerStatefulWidget {
+  const HomeAdvertise({super.key});
   @override
-  ConsumerState<Home> createState() => _HomeState();
+  ConsumerState<HomeAdvertise> createState() => _HomeAdvertiseState();
 }
 
-class _HomeState extends ConsumerState<Home> {
+class _HomeAdvertiseState extends ConsumerState<HomeAdvertise> {
   @override
   void initState() {
     super.initState();
@@ -20,9 +19,6 @@ class _HomeState extends ConsumerState<Home> {
       ref
           .read(bleAdvertiserProvider.notifier)
           .requestPermissions(showSnackBarFactory(context));
-
-      ref.read(bleScannerProvider.notifier).startAdaptorStateListener();
-      ref.read(bleScannerProvider.notifier).startScanResultsListener();
     });
   }
 
@@ -35,10 +31,6 @@ class _HomeState extends ConsumerState<Home> {
     final uuid =
         ref.watch(bleAdvertiserProvider).advertiseData?.serviceUuid ?? "None";
 
-    final isAdapterStateOn = ref.watch(bleScannerProvider).isAdapterStateOn;
-    final textIsAdapterStateOn = isAdapterStateOn
-        ? "Adaptor On"
-        : "Adaptor Off";
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -64,12 +56,6 @@ class _HomeState extends ConsumerState<Home> {
           },
           child: Text("Change UUID"),
         ),
-
-        ElevatedButton(
-          onPressed: () => {ref.read(bleScannerProvider.notifier).startScan()},
-          child: Text("Scan"),
-        ),
-        Text(textIsAdapterStateOn),
       ],
     );
   }

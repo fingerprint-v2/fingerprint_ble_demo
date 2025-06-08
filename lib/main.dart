@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'app.dart';
+import 'home_advertise.dart';
+import 'home_scan.dart';
 
 void main() {
   runApp(const ProviderScope(child: MainApp()));
@@ -12,7 +13,26 @@ class MainApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
-      home: Scaffold(body: Center(child: Home())),
+      home: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('BLE Demo'),
+            bottom: TabBar(
+              tabs: [
+                Tab(icon: Icon(Icons.home), text: 'Advertise'),
+                Tab(icon: Icon(Icons.star), text: 'Scan'),
+              ],
+            ),
+          ),
+          body: TabBarView(
+            children: [
+              Center(child: HomeAdvertise()),
+              Center(child: HomeScan()),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

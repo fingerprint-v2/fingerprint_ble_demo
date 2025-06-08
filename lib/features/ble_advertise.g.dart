@@ -6,7 +6,7 @@ part of 'ble_advertise.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$bleAdvertiserHash() => r'c04c1a0e1146d31f95113a7301200e493756c350';
+String _$bleAdvertiserHash() => r'78fe6ebecc2948cbd70e7eeb7b5ddb9a000e6b73';
 
 /// See also [BleAdvertiser].
 @ProviderFor(BleAdvertiser)

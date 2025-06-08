@@ -56,8 +56,9 @@ class BleAdvertiser extends _$BleAdvertiser {
     if (uuid == "") {
       uuid = Uuid().v4();
     }
+    String maskedUuid = "ffff" + uuid.substring(4);
     final AdvertiseData data = AdvertiseData(
-      serviceUuid: uuid,
+      serviceUuid: maskedUuid,
       localName: localName,
       manufacturerId: manufacturerId,
       manufacturerData: Uint8List.fromList([1, 2, 3, 4, 5, 6]),
