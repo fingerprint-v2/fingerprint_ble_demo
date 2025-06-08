@@ -24,15 +24,18 @@ class _HomeState extends ConsumerState<Home> {
 
   @override
   Widget build(BuildContext context) {
-    // final isSupported = ref.watch(bleAdvertiserProvider).isSupported;
-    // final text = isSupported ? "Yes" : "No";
-
+    final isSupported = ref.watch(bleAdvertiserProvider).isSupported;
+    final textIsSupported = isSupported ? "BLE Supported" : "BLE Not Supported";
+    final isAdvertising = ref.watch(bleAdvertiserProvider).isAdvertising;
+    final textIsAdvertising = isAdvertising ? "Advertising" : "Not Advertising";
     final uuid =
         ref.watch(bleAdvertiserProvider).advertiseData?.serviceUuid ?? "None";
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
+        Text(textIsSupported),
+        Text(textIsAdvertising),
         Text(uuid),
         ElevatedButton(
           onPressed: () => {

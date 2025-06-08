@@ -14,6 +14,7 @@ sealed class BleAdvertiserState with _$BleAdvertiserState {
     @Default(false) bool isSupported,
     AdvertiseData? advertiseData,
     AdvertiseSetParameters? advertiseSetParameters,
+    @Default(false) isAdvertising,
   }) = _BleAdvertiserState;
 }
 
@@ -65,10 +66,13 @@ class BleAdvertiser extends _$BleAdvertiser {
     return data;
   }
 
-  void changeAdvertiseDate({
+  Future<void> changeAdvertiseDate({
     String localName = "BLE Test",
     int manufacturerId = 12345,
-  }) {
+  }) async {
+    if (state.isAdvertising) {
+      await stopAdvertise();
+    }
     final data = getAdvertiseData();
     state = state.copyWith(advertiseData: data);
   }
@@ -89,9 +93,11 @@ class BleAdvertiser extends _$BleAdvertiser {
       advertiseData: state.advertiseData ?? getAdvertiseData(),
       advertiseSetParameters: state.advertiseSetParameters,
     );
+    state = state.copyWith(isAdvertising: true);
   }
 
   Future<void> stopAdvertise() async {
     await FlutterBlePeripheral().stop();
+    state = state.copyWith(isAdvertising: false);
   }
 }
