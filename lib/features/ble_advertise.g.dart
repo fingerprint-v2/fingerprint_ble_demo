@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'ble_scan.dart';
+part of 'ble_advertise.dart';
 
 // **************************************************************************
 // RiverpodGenerator

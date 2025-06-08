@@ -1,9 +1,9 @@
+import 'package:fingerprint_ble_demo/features/ble_scan.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import './ble_scan.dart';
-import './utils.dart';
+import 'features/ble_advertise.dart';
+import 'features/utils.dart';
 
 class Home extends ConsumerStatefulWidget {
   const Home({super.key});
@@ -55,6 +55,11 @@ class _HomeState extends ConsumerState<Home> {
             ref.read(bleAdvertiserProvider.notifier).changeAdvertiseDate(),
           },
           child: Text("Change UUID"),
+        ),
+
+        ElevatedButton(
+          onPressed: () => {ref.read(bleScannerProvider.notifier).scanBle()},
+          child: Text("Scan"),
         ),
       ],
     );
