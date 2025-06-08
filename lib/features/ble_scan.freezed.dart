@@ -15,30 +15,63 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$BleScannerState {
 
-
+ StreamSubscription<BluetoothAdapterState>? get adaptorStateSub; StreamSubscription<List<ScanResult>>? get scanResultsSub; bool get isAdapterStateOn;
+/// Create a copy of BleScannerState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$BleScannerStateCopyWith<BleScannerState> get copyWith => _$BleScannerStateCopyWithImpl<BleScannerState>(this as BleScannerState, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BleScannerState);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BleScannerState&&(identical(other.adaptorStateSub, adaptorStateSub) || other.adaptorStateSub == adaptorStateSub)&&(identical(other.scanResultsSub, scanResultsSub) || other.scanResultsSub == scanResultsSub)&&(identical(other.isAdapterStateOn, isAdapterStateOn) || other.isAdapterStateOn == isAdapterStateOn));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,adaptorStateSub,scanResultsSub,isAdapterStateOn);
 
 @override
 String toString() {
-  return 'BleScannerState()';
+  return 'BleScannerState(adaptorStateSub: $adaptorStateSub, scanResultsSub: $scanResultsSub, isAdapterStateOn: $isAdapterStateOn)';
 }
 
 
 }
 
 /// @nodoc
-class $BleScannerStateCopyWith<$Res>  {
-$BleScannerStateCopyWith(BleScannerState _, $Res Function(BleScannerState) __);
+abstract mixin class $BleScannerStateCopyWith<$Res>  {
+  factory $BleScannerStateCopyWith(BleScannerState value, $Res Function(BleScannerState) _then) = _$BleScannerStateCopyWithImpl;
+@useResult
+$Res call({
+ StreamSubscription<BluetoothAdapterState>? adaptorStateSub, StreamSubscription<List<ScanResult>>? scanResultsSub, bool isAdapterStateOn
+});
+
+
+
+
+}
+/// @nodoc
+class _$BleScannerStateCopyWithImpl<$Res>
+    implements $BleScannerStateCopyWith<$Res> {
+  _$BleScannerStateCopyWithImpl(this._self, this._then);
+
+  final BleScannerState _self;
+  final $Res Function(BleScannerState) _then;
+
+/// Create a copy of BleScannerState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? adaptorStateSub = freezed,Object? scanResultsSub = freezed,Object? isAdapterStateOn = null,}) {
+  return _then(_self.copyWith(
+adaptorStateSub: freezed == adaptorStateSub ? _self.adaptorStateSub : adaptorStateSub // ignore: cast_nullable_to_non_nullable
+as StreamSubscription<BluetoothAdapterState>?,scanResultsSub: freezed == scanResultsSub ? _self.scanResultsSub : scanResultsSub // ignore: cast_nullable_to_non_nullable
+as StreamSubscription<List<ScanResult>>?,isAdapterStateOn: null == isAdapterStateOn ? _self.isAdapterStateOn : isAdapterStateOn // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+
 }
 
 
@@ -46,32 +79,70 @@ $BleScannerStateCopyWith(BleScannerState _, $Res Function(BleScannerState) __);
 
 
 class _BleScannerState implements BleScannerState {
-  const _BleScannerState();
+  const _BleScannerState({this.adaptorStateSub, this.scanResultsSub, this.isAdapterStateOn = false});
   
 
+@override final  StreamSubscription<BluetoothAdapterState>? adaptorStateSub;
+@override final  StreamSubscription<List<ScanResult>>? scanResultsSub;
+@override@JsonKey() final  bool isAdapterStateOn;
 
-
+/// Create a copy of BleScannerState
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$BleScannerStateCopyWith<_BleScannerState> get copyWith => __$BleScannerStateCopyWithImpl<_BleScannerState>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BleScannerState);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BleScannerState&&(identical(other.adaptorStateSub, adaptorStateSub) || other.adaptorStateSub == adaptorStateSub)&&(identical(other.scanResultsSub, scanResultsSub) || other.scanResultsSub == scanResultsSub)&&(identical(other.isAdapterStateOn, isAdapterStateOn) || other.isAdapterStateOn == isAdapterStateOn));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,adaptorStateSub,scanResultsSub,isAdapterStateOn);
 
 @override
 String toString() {
-  return 'BleScannerState()';
+  return 'BleScannerState(adaptorStateSub: $adaptorStateSub, scanResultsSub: $scanResultsSub, isAdapterStateOn: $isAdapterStateOn)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class _$BleScannerStateCopyWith<$Res> implements $BleScannerStateCopyWith<$Res> {
+  factory _$BleScannerStateCopyWith(_BleScannerState value, $Res Function(_BleScannerState) _then) = __$BleScannerStateCopyWithImpl;
+@override @useResult
+$Res call({
+ StreamSubscription<BluetoothAdapterState>? adaptorStateSub, StreamSubscription<List<ScanResult>>? scanResultsSub, bool isAdapterStateOn
+});
 
 
+
+
+}
+/// @nodoc
+class __$BleScannerStateCopyWithImpl<$Res>
+    implements _$BleScannerStateCopyWith<$Res> {
+  __$BleScannerStateCopyWithImpl(this._self, this._then);
+
+  final _BleScannerState _self;
+  final $Res Function(_BleScannerState) _then;
+
+/// Create a copy of BleScannerState
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? adaptorStateSub = freezed,Object? scanResultsSub = freezed,Object? isAdapterStateOn = null,}) {
+  return _then(_BleScannerState(
+adaptorStateSub: freezed == adaptorStateSub ? _self.adaptorStateSub : adaptorStateSub // ignore: cast_nullable_to_non_nullable
+as StreamSubscription<BluetoothAdapterState>?,scanResultsSub: freezed == scanResultsSub ? _self.scanResultsSub : scanResultsSub // ignore: cast_nullable_to_non_nullable
+as StreamSubscription<List<ScanResult>>?,isAdapterStateOn: null == isAdapterStateOn ? _self.isAdapterStateOn : isAdapterStateOn // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+
+
+}
 
 // dart format on

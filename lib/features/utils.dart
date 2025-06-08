@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 
 Function showSnackBarFactory(BuildContext context) {
   void showSnacBar(String message) {
@@ -9,3 +10,5 @@ Function showSnackBarFactory(BuildContext context) {
 
   return showSnacBar;
 }
+
+var logger = Logger();

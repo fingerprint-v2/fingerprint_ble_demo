@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'features/ble_advertise.dart';
+import 'features/ble_scan.dart';
 import 'features/utils.dart';
 
 class Home extends ConsumerStatefulWidget {
@@ -19,6 +20,9 @@ class _HomeState extends ConsumerState<Home> {
       ref
           .read(bleAdvertiserProvider.notifier)
           .requestPermissions(showSnackBarFactory(context));
+
+      ref.read(bleScannerProvider.notifier).startAdaptorStateListener();
+      ref.read(bleScannerProvider.notifier).startScanResultsListener();
     });
   }
 
@@ -58,7 +62,7 @@ class _HomeState extends ConsumerState<Home> {
         ),
 
         ElevatedButton(
-          onPressed: () => {ref.read(bleScannerProvider.notifier).scanBle()},
+          onPressed: () => {ref.read(bleScannerProvider.notifier).startScan()},
           child: Text("Scan"),
         ),
       ],
