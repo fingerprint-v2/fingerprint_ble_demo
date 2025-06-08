@@ -13,6 +13,7 @@ sealed class BleScannerState with _$BleScannerState {
     StreamSubscription<BluetoothAdapterState>? adaptorStateSub,
     StreamSubscription<List<ScanResult>>? scanResultsSub,
     @Default(false) bool isAdapterStateOn,
+    @Default([]) List<ScanResult> scanResults,
   }) = _BleScannerState;
 }
 
@@ -53,7 +54,14 @@ class BleScanner extends _$BleScanner {
   }
 
   void startScan() async {
-    await FlutterBluePlus.startScan(timeout: Duration(seconds: 15));
+    logger.d("Starting Scan");
+    await FlutterBluePlus.startScan(
+      timeout: Duration(seconds: 3),
+      // withNames: ["BLE Test"],
+    );
+
+    await FlutterBluePlus.isScanning.where((val) => val == false).first;
+    logger.d("Scanning stop");
   }
 
   void startScanResultsListener() {
@@ -68,9 +76,22 @@ class BleScanner extends _$BleScanner {
       logger.d("scanResultsSub alreday exists");
       return;
     }
-    final sub = FlutterBluePlus.scanResults.listen((results) {
+    final sub = FlutterBluePlus.onScanResults.listen((results) {
       if (results.isNotEmpty) {
-        logger.d(results.length);
+        List<ScanResult> allResults = [
+          ...state.scanResults,
+          ...results.where(
+            (r) =>
+                !state.scanResults.any((old) => old.device.id == r.device.id),
+          ),
+        ];
+        logger.d("Total devices found: ${allResults.length}");
+        allResults.sort((a, b) => b.rssi.compareTo(a.rssi));
+        state = state.copyWith(scanResults: allResults);
+
+        // ScanResult r = results.last; // the most recently found device
+        // logger.d(r);
+        // state = state.copyWith(scanResults: [...state.scanResults, r]);
       }
     }, onError: (e) => {logger.d(e)});
     state = state.copyWith(scanResultsSub: sub);

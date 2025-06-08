@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$BleScannerState {
 
- StreamSubscription<BluetoothAdapterState>? get adaptorStateSub; StreamSubscription<List<ScanResult>>? get scanResultsSub; bool get isAdapterStateOn;
+ StreamSubscription<BluetoothAdapterState>? get adaptorStateSub; StreamSubscription<List<ScanResult>>? get scanResultsSub; bool get isAdapterStateOn; List<ScanResult> get scanResults;
 /// Create a copy of BleScannerState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $BleScannerStateCopyWith<BleScannerState> get copyWith => _$BleScannerStateCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BleScannerState&&(identical(other.adaptorStateSub, adaptorStateSub) || other.adaptorStateSub == adaptorStateSub)&&(identical(other.scanResultsSub, scanResultsSub) || other.scanResultsSub == scanResultsSub)&&(identical(other.isAdapterStateOn, isAdapterStateOn) || other.isAdapterStateOn == isAdapterStateOn));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BleScannerState&&(identical(other.adaptorStateSub, adaptorStateSub) || other.adaptorStateSub == adaptorStateSub)&&(identical(other.scanResultsSub, scanResultsSub) || other.scanResultsSub == scanResultsSub)&&(identical(other.isAdapterStateOn, isAdapterStateOn) || other.isAdapterStateOn == isAdapterStateOn)&&const DeepCollectionEquality().equals(other.scanResults, scanResults));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,adaptorStateSub,scanResultsSub,isAdapterStateOn);
+int get hashCode => Object.hash(runtimeType,adaptorStateSub,scanResultsSub,isAdapterStateOn,const DeepCollectionEquality().hash(scanResults));
 
 @override
 String toString() {
-  return 'BleScannerState(adaptorStateSub: $adaptorStateSub, scanResultsSub: $scanResultsSub, isAdapterStateOn: $isAdapterStateOn)';
+  return 'BleScannerState(adaptorStateSub: $adaptorStateSub, scanResultsSub: $scanResultsSub, isAdapterStateOn: $isAdapterStateOn, scanResults: $scanResults)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $BleScannerStateCopyWith<$Res>  {
   factory $BleScannerStateCopyWith(BleScannerState value, $Res Function(BleScannerState) _then) = _$BleScannerStateCopyWithImpl;
 @useResult
 $Res call({
- StreamSubscription<BluetoothAdapterState>? adaptorStateSub, StreamSubscription<List<ScanResult>>? scanResultsSub, bool isAdapterStateOn
+ StreamSubscription<BluetoothAdapterState>? adaptorStateSub, StreamSubscription<List<ScanResult>>? scanResultsSub, bool isAdapterStateOn, List<ScanResult> scanResults
 });
 
 
@@ -63,12 +63,13 @@ class _$BleScannerStateCopyWithImpl<$Res>
 
 /// Create a copy of BleScannerState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? adaptorStateSub = freezed,Object? scanResultsSub = freezed,Object? isAdapterStateOn = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? adaptorStateSub = freezed,Object? scanResultsSub = freezed,Object? isAdapterStateOn = null,Object? scanResults = null,}) {
   return _then(_self.copyWith(
 adaptorStateSub: freezed == adaptorStateSub ? _self.adaptorStateSub : adaptorStateSub // ignore: cast_nullable_to_non_nullable
 as StreamSubscription<BluetoothAdapterState>?,scanResultsSub: freezed == scanResultsSub ? _self.scanResultsSub : scanResultsSub // ignore: cast_nullable_to_non_nullable
 as StreamSubscription<List<ScanResult>>?,isAdapterStateOn: null == isAdapterStateOn ? _self.isAdapterStateOn : isAdapterStateOn // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,scanResults: null == scanResults ? _self.scanResults : scanResults // ignore: cast_nullable_to_non_nullable
+as List<ScanResult>,
   ));
 }
 
@@ -79,12 +80,19 @@ as bool,
 
 
 class _BleScannerState implements BleScannerState {
-  const _BleScannerState({this.adaptorStateSub, this.scanResultsSub, this.isAdapterStateOn = false});
+  const _BleScannerState({this.adaptorStateSub, this.scanResultsSub, this.isAdapterStateOn = false, final  List<ScanResult> scanResults = const []}): _scanResults = scanResults;
   
 
 @override final  StreamSubscription<BluetoothAdapterState>? adaptorStateSub;
 @override final  StreamSubscription<List<ScanResult>>? scanResultsSub;
 @override@JsonKey() final  bool isAdapterStateOn;
+ final  List<ScanResult> _scanResults;
+@override@JsonKey() List<ScanResult> get scanResults {
+  if (_scanResults is EqualUnmodifiableListView) return _scanResults;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_scanResults);
+}
+
 
 /// Create a copy of BleScannerState
 /// with the given fields replaced by the non-null parameter values.
@@ -96,16 +104,16 @@ _$BleScannerStateCopyWith<_BleScannerState> get copyWith => __$BleScannerStateCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BleScannerState&&(identical(other.adaptorStateSub, adaptorStateSub) || other.adaptorStateSub == adaptorStateSub)&&(identical(other.scanResultsSub, scanResultsSub) || other.scanResultsSub == scanResultsSub)&&(identical(other.isAdapterStateOn, isAdapterStateOn) || other.isAdapterStateOn == isAdapterStateOn));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BleScannerState&&(identical(other.adaptorStateSub, adaptorStateSub) || other.adaptorStateSub == adaptorStateSub)&&(identical(other.scanResultsSub, scanResultsSub) || other.scanResultsSub == scanResultsSub)&&(identical(other.isAdapterStateOn, isAdapterStateOn) || other.isAdapterStateOn == isAdapterStateOn)&&const DeepCollectionEquality().equals(other._scanResults, _scanResults));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,adaptorStateSub,scanResultsSub,isAdapterStateOn);
+int get hashCode => Object.hash(runtimeType,adaptorStateSub,scanResultsSub,isAdapterStateOn,const DeepCollectionEquality().hash(_scanResults));
 
 @override
 String toString() {
-  return 'BleScannerState(adaptorStateSub: $adaptorStateSub, scanResultsSub: $scanResultsSub, isAdapterStateOn: $isAdapterStateOn)';
+  return 'BleScannerState(adaptorStateSub: $adaptorStateSub, scanResultsSub: $scanResultsSub, isAdapterStateOn: $isAdapterStateOn, scanResults: $scanResults)';
 }
 
 
@@ -116,7 +124,7 @@ abstract mixin class _$BleScannerStateCopyWith<$Res> implements $BleScannerState
   factory _$BleScannerStateCopyWith(_BleScannerState value, $Res Function(_BleScannerState) _then) = __$BleScannerStateCopyWithImpl;
 @override @useResult
 $Res call({
- StreamSubscription<BluetoothAdapterState>? adaptorStateSub, StreamSubscription<List<ScanResult>>? scanResultsSub, bool isAdapterStateOn
+ StreamSubscription<BluetoothAdapterState>? adaptorStateSub, StreamSubscription<List<ScanResult>>? scanResultsSub, bool isAdapterStateOn, List<ScanResult> scanResults
 });
 
 
@@ -133,12 +141,13 @@ class __$BleScannerStateCopyWithImpl<$Res>
 
 /// Create a copy of BleScannerState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? adaptorStateSub = freezed,Object? scanResultsSub = freezed,Object? isAdapterStateOn = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? adaptorStateSub = freezed,Object? scanResultsSub = freezed,Object? isAdapterStateOn = null,Object? scanResults = null,}) {
   return _then(_BleScannerState(
 adaptorStateSub: freezed == adaptorStateSub ? _self.adaptorStateSub : adaptorStateSub // ignore: cast_nullable_to_non_nullable
 as StreamSubscription<BluetoothAdapterState>?,scanResultsSub: freezed == scanResultsSub ? _self.scanResultsSub : scanResultsSub // ignore: cast_nullable_to_non_nullable
 as StreamSubscription<List<ScanResult>>?,isAdapterStateOn: null == isAdapterStateOn ? _self.isAdapterStateOn : isAdapterStateOn // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,scanResults: null == scanResults ? _self._scanResults : scanResults // ignore: cast_nullable_to_non_nullable
+as List<ScanResult>,
   ));
 }
 

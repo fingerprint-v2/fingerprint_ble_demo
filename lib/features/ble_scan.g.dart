@@ -6,7 +6,7 @@ part of 'ble_scan.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$bleScannerHash() => r'd02e296096af6ebec2e6bce4cd1cd9fc84881436';
+String _$bleScannerHash() => r'99e413f070474ed7f2df38da0854e70f114e9953';
 
 /// See also [BleScanner].
 @ProviderFor(BleScanner)

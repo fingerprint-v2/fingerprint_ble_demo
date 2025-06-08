@@ -35,6 +35,10 @@ class _HomeState extends ConsumerState<Home> {
     final uuid =
         ref.watch(bleAdvertiserProvider).advertiseData?.serviceUuid ?? "None";
 
+    final isAdapterStateOn = ref.watch(bleScannerProvider).isAdapterStateOn;
+    final textIsAdapterStateOn = isAdapterStateOn
+        ? "Adaptor On"
+        : "Adaptor Off";
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -65,6 +69,7 @@ class _HomeState extends ConsumerState<Home> {
           onPressed: () => {ref.read(bleScannerProvider.notifier).startScan()},
           child: Text("Scan"),
         ),
+        Text(textIsAdapterStateOn),
       ],
     );
   }
